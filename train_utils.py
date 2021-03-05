@@ -57,4 +57,12 @@ def initialize_model(model_path=None,pretrained=False,mode='train',device = torc
                                 nn.Sigmoid())
     return model
 
+def confusion_mat(preds,labels,threshold=0.5):
+    preds = np.where(preds<threshold,0,1)
+    TP = np.sum(np.logical_and(preds == 1, labels == 1))
+    TN = np.sum(np.logical_and(preds == 0, labels == 0))
+    FP = np.sum(np.logical_and(preds == 1, labels == 0))
+    FN = np.sum(np.logical_and(preds == 0, labels == 1))
+
+    return TP,TN,FP,FN
 
